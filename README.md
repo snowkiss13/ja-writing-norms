@@ -114,6 +114,7 @@ Cursorはプロジェクトルートの`AGENTS.md`をルールとして読みま
 - [障害報告書](examples/03-incident-report-reasoning.md)
 - [ライブラリ選定の比較記事](examples/04-library-comparison-landing.md)
 - [チュートリアルの解説文](examples/05-tutorial-density-rhythm.md)
+- [AI修正前後の比較と採用版の記録](examples/06-ai-revision-adopted-version.md)
 
 Beforeは、破綻した悪文ではなく、そのまま公開されても不思議ではない平坦な初稿です。
 Afterで何を変えたかは、各ファイルの「効いた規範」に記録しています。
