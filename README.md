@@ -4,6 +4,8 @@ AI支援で書く日本語を、完成後の化粧直しではなく、下書き
 
 [English](README.en.md)
 
+日本語の概要と実例は[ドキュメントサイト](https://snowkiss13.github.io/ja-writing-norms/)から読めます。
+
 ## 30秒でわかる違い
 
 ### Before
