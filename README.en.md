@@ -51,6 +51,10 @@ Each `SKILL.md` points to the other.
 
 ## Installation
 
+### Download without Git
+
+Download the [v0.2.0 ZIP archive](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.2.0.zip) and extract it. Open the `ja-writing-norms-0.2.0` folder, then run the installation commands below from that repository root.
+
 ### Claude Code
 
 From the repository root, install both personal skills with:
