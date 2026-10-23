@@ -63,6 +63,8 @@ git clone --depth 1 --branch v0.2.0 https://github.com/snowkiss13/ja-writing-nor
 cd ja-writing-norms
 ```
 
+Gitを使わない場合は、[v0.2.0のZIPをダウンロード](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.2.0.zip)して展開できます。展開後、下の利用ツールに合う配置手順を実行してください。
+
 その後、利用するツールの配置手順を実行してください。
 
 ### Claude Code
