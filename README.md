@@ -56,6 +56,15 @@ URLにパラメータを追加するだけで利用できるため、簡単に�
 
 ## 導入
 
+安定版の内容を固定して取得する場合は、タグを指定してチェックアウトします。
+
+```bash
+git clone --depth 1 --branch v0.2.0 https://github.com/snowkiss13/ja-writing-norms.git
+cd ja-writing-norms
+```
+
+その後、利用するツールの配置手順を実行してください。
+
 ### Claude Code
 
 個人用スキルとして使う場合は、リポジトリのルートで次を実行します。
