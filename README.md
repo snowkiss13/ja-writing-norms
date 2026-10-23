@@ -116,6 +116,8 @@ Cursorはプロジェクトルートの`AGENTS.md`をルールとして読みま
 - [チュートリアルの解説文](examples/05-tutorial-density-rhythm.md)
 - [AI修正前後の比較と採用版の記録](examples/06-ai-revision-adopted-version.md)
 
+AI修正後の確認に使える[採用版チェックリストと指示文](https://note.com/smartcareviz/n/naf463e2cc4cb)も公開しています。500円の買い切りで、無料部分に指示文1本、有料部分にチェックリストと指示文4本を収録しています。
+
 Beforeは、破綻した悪文ではなく、そのまま公開されても不思議ではない平坦な初稿です。
 Afterで何を変えたかは、各ファイルの「効いた規範」に記録しています。
 
