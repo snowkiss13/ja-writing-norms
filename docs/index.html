@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI支援の日本語文書を、事実と論証の正確さ、読み進めやすい構成から整える2つのオープンスキル。">
+  <meta name="robots" content="index,follow">
+  <title>AI支援の日本語ライティング規範 | ja-writing-norms</title>
+  <style>
+    :root { color-scheme: light; --ink:#20262d; --muted:#596775; --line:#d7dee5; --paper:#fff; --wash:#f4f7f9; --link:#075985; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font:17px/1.8 system-ui,-apple-system,"Noto Sans JP",sans-serif; }
+    main { max-width:760px; margin:5vh auto; padding:clamp(24px,5vw,52px); background:var(--paper); border:1px solid var(--line); }
+    h1 { font-size:clamp(2rem,5vw,3.2rem); line-height:1.25; letter-spacing:.01em; }
+    h2 { margin-top:2.3em; padding-bottom:.35em; border-bottom:1px solid var(--line); font-size:1.3rem; }
+    p,li { max-width:66ch; }
+    a { color:var(--link); text-underline-offset:.18em; }
+    .lead { color:var(--muted); font-size:1.12rem; }
+    .skill { margin:1rem 0; padding:1rem 1.2rem; border:1px solid var(--line); border-radius:8px; }
+    .skill h3 { margin:.1rem 0 .4rem; font-size:1.08rem; }
+    footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="https://github.com/snowkiss13/ja-writing-norms">ja-writing-norms · オープンスキル</a></p>
+  <h1>AI支援の日本語を、事実から読みやすくする</h1>
+  <p class="lead">文章の表面を整える前に、根拠をどう並べるか、段落に何を担わせるかを決める。正確さと読み進めやすさを支える2つの日本語ライティング規範を公開しています。</p>
+
+  <h2>2つの規範</h2>
+  <section class="skill">
+    <h3><a href="https://github.com/snowkiss13/ja-writing-norms/tree/main/skills/japanese-tech-writing">japanese-tech-writing</a></h3>
+    <p>主張と根拠、因果と不確実性、段落構成、読み手の負荷を整えます。</p>
+  </section>
+  <section class="skill">
+    <h3><a href="https://github.com/snowkiss13/ja-writing-norms/tree/main/skills/cognitive-rhythm-writing">cognitive-rhythm-writing</a></h3>
+    <p>文の拍、密度の波、節の入り方、問いの回収を設計し、読者が論旨をたどれる文章を目指します。</p>
+  </section>
+
+  <h2>実例</h2>
+  <p>同じ事実でも、順序と段落の役割を変えると、説明の筋道が追いやすくなります。Before/Afterと、効いた規範を確認できます。</p>
+  <ul>
+    <li><a href="https://github.com/snowkiss13/ja-writing-norms/tree/main/examples">技術文書・障害報告・比較記事などの実例一覧</a></li>
+    <li><a href="https://github.com/snowkiss13/ja-writing-norms/blob/main/examples/06-ai-revision-adopted-version.md">AI修正前後を比べ、採用版と根拠を残す実例</a></li>
+  </ul>
+
+  <h2>使い始める</h2>
+  <p>Claude Code、Codex、Cursorへの配置方法と、依頼文の例はリポジトリのREADMEにまとめています。既存の設定へ導入する場合は、説明に沿って規範を統合してください。</p>
+  <p><a href="https://github.com/snowkiss13/ja-writing-norms#導入">READMEの導入手順を見る</a></p>
+
+  <footer>
+    <p>このサイトは ja-writing-norms リポジトリのオープンドキュメントです。実例は説明用で、規範は入力にない事実を補いません。</p>
+  </footer>
+</main>
+</body>
+</html>
