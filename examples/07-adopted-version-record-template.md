@@ -31,6 +31,6 @@
 照合できない項目があれば、空欄を推測で埋めず「未確認」と記録してください。
 
 この雛形は記録欄の例であり、修正内容の正しさを保証するものではありません。
-Before/Afterの[記入例](06-ai-revision-adopted-version.md)も公開しています。
+[記入例](08-adopted-version-record-example.md)で、各欄への書き方を確認できます。Before/Afterの比較は[AI修正前後の実例](06-ai-revision-adopted-version.md)を参照してください。
 
 より詳しい確認表と指示文を使う場合は、[採用版チェックリストと指示文](https://note.com/smartcareviz/n/naf463e2cc4cb)を参照してください。
