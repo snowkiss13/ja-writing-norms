@@ -9,6 +9,11 @@ AI支援で書く日本語を、完成後の化粧直しではなく、下書き
 [採用版を記録する無料ツール](https://snowkiss13.github.io/ja-writing-norms/adopted-version/)では、原文とAIの修正候補を並べ、現在使う文章と判断理由をMarkdownで保存できます。
 入力内容はブラウザー内で処理し、サーバー送信や自動保存はしません。
 
+無料ツールの画面にある「オフラインで使うHTML版を保存」からファイルをダウンロードし、パソコンのブラウザーで開いて使うこともできます。
+記入とMarkdownの保存にはインターネット接続が不要です。
+入力内容の自動保存はないため、閉じる前に記録を保存してください。
+商品紹介やサイトへのリンクを開く際は、インターネットに接続します。
+
 ## 30秒でわかる違い
 
 ### Before
@@ -144,6 +149,9 @@ Afterで何を変えたかは、各ファイルの「効いた規範」に記録
 記録の保存処理は、追加パッケージなしで `node --test tests/adopted-record.test.mjs` を実行して確認できます。
 ローカルで画面を開く場合は `python3 -m http.server 8000 --bind 127.0.0.1 --directory docs` を実行し、`http://127.0.0.1:8000/adopted-version/` を開きます。
 文面を変更すると判断が保留に戻ること、保存したファイルに入力内容が残ることを確認してください。
+
+オフライン版は同じ画面とJavaScriptから生成します。
+元のファイルを変更したら `python3 scripts/build_offline.py` で更新し、`python3 scripts/build_offline.py --check` と `python3 -m unittest discover -s tests -p 'test_offline_bundle.py'` で確認します。
 
 ## ライセンス
 

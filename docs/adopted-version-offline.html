@@ -1,0 +1,232 @@
+<!doctype html>
+<!--
+MIT License
+
+Copyright (c) 2026 snowkiss13
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-pd8TcyOeLfl3/poOVxXaAL/sxm5WONz9A+T+S8i19wc='; style-src 'sha256-iQ68nTYuGP1e/Iw1Rh9uiIXQTtaKKEUFZ6tPH5mUcko='; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="原文とAIの修正候補を並べ、現在使う文章と判断理由を記録する無料ツール。入力内容をブラウザー内でMarkdownにして保存できます。">
+  <link rel="canonical" href="https://snowkiss13.github.io/ja-writing-norms/adopted-version/">
+  <title>AI修正後の採用版を記録する無料ツール（オフライン版） | ja-writing-norms</title>
+  <style>
+:root{color-scheme:light;--ink:#202d38;--muted:#526474;--line:#ccd8df;--accent:#125b65;--wash:#f0f5f5;--paper:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:17px/1.75 system-ui,-apple-system,sans-serif}main{max-width:1080px;margin:auto;padding:28px clamp(16px,4vw,48px) 50px}nav,footer{font-size:.9rem}a{color:#075985;text-underline-offset:.2em}header{padding:26px 0 14px}.eyebrow{font-size:.85rem;color:var(--accent);font-weight:700;letter-spacing:.06em}h1{font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.35;margin:.35em 0}.lead{font-size:1.13rem;max-width:42em}.privacy{max-width:48em;color:var(--muted);font-size:.92rem}h2{font-size:1.2rem;line-height:1.5;margin:0 0 18px}h2 span{display:inline-block;margin-right:10px;color:var(--accent);font-size:1.5rem}section{padding:24px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:20px 0}.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}.pair>div{min-width:0}label{display:block;font-weight:600;margin:12px 0 5px}.small-label,.muted{font-size:.88rem;color:var(--muted)}input,select,textarea,button{font:inherit}input,select,textarea{display:block;width:100%;min-width:0;border:1px solid #91a5b0;border-radius:6px;background:white;color:var(--ink);padding:10px}textarea{resize:vertical;line-height:1.65}button{border:1px solid var(--accent);border-radius:7px;background:white;color:var(--accent);padding:10px 16px;cursor:pointer;min-height:44px;white-space:normal;text-align:center}button.primary{background:var(--accent);color:white}button.quiet{border-color:var(--line);color:var(--muted)}button:disabled{opacity:.5;cursor:default}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.actions button{max-width:100%}:focus-visible{outline:3px solid #bf7419;outline-offset:3px}details{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}summary{cursor:pointer;font-weight:600}.detail-fields{padding-top:6px}.validation{font-size:.92rem;color:#7c3f12}#feedback{min-height:1.75em;color:var(--accent)}#preview{font-family:ui-monospace,monospace;font-size:.85rem}aside{padding:26px 8px}aside p{max-width:48em}footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:wrap;gap:12px 24px}
+@media(max-width:680px){.pair{grid-template-columns:1fr;gap:12px}section{padding:20px 16px}main{padding:20px 14px 40px}.actions{gap:8px}.actions button{flex:1 1 200px}h2{font-size:1.13rem}}
+
+</style>
+  <script type="module">
+const fields = ['subject','workDate','purpose','original','originalRef','proposal','proposalRef','changes','changeReason','numbers','names','conditions','other','current','currentRef','reason','remaining'];
+const decisions = {pending:'保留',adopt:'採用',reject:'見送り'};
+const text = value => typeof value === 'string' ? value : '';
+const present = value => text(value).trim().length > 0;
+
+function validation(data) {
+  if (!Object.hasOwn(decisions, data.decision)) return '判断を選んでください。';
+  if (!fields.some(name => present(data[name]))) return '原文や修正候補を入力してください。';
+  if (data.decision !== 'pending' && ['original','proposal','current','reason'].some(name=>!present(data[name]))) {
+    return '採用または見送りを記録するときは、原文、候補、現在使う文章、判断の理由を入力してください。';
+  }
+  return '';
+}
+
+function block(value, empty = '未記入') {
+  const body = present(value) ? text(value) : empty;
+  let longest = 0;
+  for (const run of body.matchAll(/`+/g)) longest = Math.max(longest, run[0].length);
+  const fence = '`'.repeat(Math.max(3, longest + 1));
+  return `${fence}text\n${body}\n${fence}`;
+}
+
+function markdown(data) {
+  if (!Object.hasOwn(decisions, data.decision)) throw new Error('Unknown decision');
+  const section = (title, value, empty) => `## ${title}\n\n${block(value, empty)}\n`;
+  const sections = [
+    ['対象の文章',data.subject],['作業日',data.workDate],['修正の目的',data.purpose],
+    ['元の文章',data.original],['元の文章の保存先または版',data.originalRef],
+    ['AIの修正候補',data.proposal],['修正候補の保存先または版',data.proposalRef],
+    ['変更した箇所',data.changes],['変更の理由',data.changeReason],
+    ['照合した数字',data.numbers,'未確認（未記入）'],['照合した固有名詞',data.names,'未確認（未記入）'],
+    ['照合した条件',data.conditions,'未確認（未記入）'],['その他の照合',data.other,'未確認（未記入）'],
+    ['修正候補についての判断',decisions[data.decision]],['現在使う文章',data.current],
+    ['現在使う版の保存先または版',data.currentRef],['判断の理由',data.reason],['未確認の点',data.remaining]
+  ];
+  return '# AI修正後の採用版の記録\n\n'+sections.map(s=>section(...s)).join('\n')+'\nこの記録は入力内容の保存です。文面の正しさを自動判定したものではありません。\n';
+}
+
+
+
+const byId = id => document.getElementById(id);
+const form = byId('record-form');
+const controls = Object.fromEntries([...fields,'decision'].map(id=>[id,byId(id)]));
+const feedback = byId('feedback');
+const read = () => Object.fromEntries(Object.entries(controls).map(([name,el])=>[name,el.value]));
+const hasInput = () => fields.some(name=>controls[name].value.trim());
+let savedSnapshot = JSON.stringify(read());
+const warnBeforeLeave = event => {event.preventDefault();event.returnValue='';};
+const syncLeaveWarning = () => {
+  window.removeEventListener('beforeunload',warnBeforeLeave);
+  if (hasInput() && JSON.stringify(read()) !== savedSnapshot) window.addEventListener('beforeunload',warnBeforeLeave);
+};
+const markSaved = data => {savedSnapshot=JSON.stringify(data);syncLeaveWarning();};
+const refresh = () => {
+  const data = read();
+  byId('preview').value = markdown(data);
+  const error = validation(data);
+  byId('validation').textContent = error;
+  byId('download').disabled = byId('copy').disabled = Boolean(error);
+  syncLeaveWarning();
+};
+const decisionInputs = new Set(['original','proposal','current','numbers','names','conditions','other']);
+const reconsider = () => {
+  if (controls.decision.value === 'pending') return false;
+  controls.decision.value = 'pending';
+  feedback.textContent = '文面や照合内容を変更したため、判断を保留に戻しました。確認後に選び直してください。';
+  return true;
+};
+form.addEventListener('submit',event=>event.preventDefault());
+form.addEventListener('input',event=>{
+  feedback.textContent = '';
+  if (byId('sample-status').textContent) byId('sample-status').textContent='架空の記入例から編集した内容です。保存前に各欄を確認してください。';
+  if (decisionInputs.has(event.target.id)) reconsider();
+  refresh();
+});
+form.addEventListener('change',refresh);
+
+for (const [id,name] of [['use-original','original'],['use-proposal','proposal']]) {
+  byId(id).addEventListener('click',()=>{
+    const next=controls[name].value;
+    if (!next.trim()) {feedback.textContent='先に'+(name==='original'?'元の文章':'AIの修正候補')+'を入力してください。';return;}
+    if (controls.current.value && controls.current.value!==next && !window.confirm('現在使う文章の欄を置き換えます。よろしいですか？')) return;
+    if (controls.current.value!==next) {controls.current.value=next;reconsider();}
+    refresh();controls.current.focus();
+  });
+}
+
+const example = {
+  subject:'説明会の申込案内（架空）',purpose:'提出先と締切を一文で読めるようにする',
+  original:'申込書を受付に提出してください。締切は11月28日です。',originalRef:'案内文 v1（架空）',
+  proposal:'申込書は11月28日までに受付へ提出してください。',proposalRef:'案内文 修正候補A（架空）',
+  changes:'二文を一文にまとめ、「締切は11月28日」を「11月28日までに」とした',
+  changeReason:'期限と提出先を同じ文で確認できるようにする',numbers:'11月28日を維持',names:'該当なし',
+  conditions:'受付へ提出する条件を維持',other:'申込書を提出する対象を維持',decision:'adopt',
+  current:'申込書は11月28日までに受付へ提出してください。',currentRef:'案内文 v2（架空）',
+  reason:'期限、提出先、提出対象が元の案内と一致している',remaining:'なし（架空の記入例）'
+};
+byId('example').addEventListener('click',()=>{
+  if (hasInput() && !window.confirm('入力内容を架空の記入例に置き換えます。よろしいですか？')) return;
+  for (const [name,el] of Object.entries(controls)) el.value=example[name] || '';
+  byId('sample-status').textContent='架空の記入例を表示しています。実在の文書やAI出力ではありません。';
+  feedback.textContent='架空の記入例を入れました。';refresh();
+});
+byId('clear').addEventListener('click',()=>{
+  if (hasInput() && !window.confirm('入力内容を消します。保存が必要な記録は先にダウンロードしてください。消してよろしいですか？')) return;
+  form.reset();byId('sample-status').textContent='';feedback.textContent='入力を消しました。';refresh();controls.original.focus();
+});
+byId('copy').addEventListener('click',async()=>{
+  const data=read();if(validation(data)) {refresh();return;}
+  const record=markdown(data);
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(record);markSaved(data);feedback.textContent='記録をコピーしました。';
+  } catch {
+    const preview=byId('preview');preview.closest('details').open=true;preview.focus();preview.select();
+    feedback.textContent='自動コピーが使えません。選択された記録を手動でコピーするか、ファイルを保存してください。';
+  }
+});
+byId('download').addEventListener('click',()=>{
+  const data=read();if(validation(data)) {refresh();return;}
+  const url=URL.createObjectURL(new Blob([markdown(data)],{type:'text/markdown;charset=utf-8'}));
+  const link=document.createElement('a');link.href=url;link.download='adopted-version-record.md';
+  document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  markSaved(data);
+  feedback.textContent='保存用ファイルを作りました。端末のダウンロード先を確認してください。';
+});
+for (const id of ['example','clear','use-original','use-proposal']) byId(id).disabled=false;
+refresh();
+
+</script>
+</head>
+<body>
+<main>
+  <nav aria-label="パンくず"><a href="https://snowkiss13.github.io/ja-writing-norms/">日本語ライティング規範</a> / 採用版の記録</nav>
+  <header>
+    <p class="eyebrow">無料の記入ツール（オフライン版）</p>
+    <h1>AI修正後の採用版を残す</h1>
+    <p class="lead">原文と修正候補を並べ、現在使う文章と判断の理由をひとつの記録にします。</p>
+    <p class="privacy">入力した文章はこのページ内で処理します。サーバー送信や自動保存はしません。閉じる前に記録を保存してください。</p>
+    <p class="privacy">保存したHTMLファイルだけで記入と記録の保存ができます。商品紹介やサイトへのリンクを開くと、インターネットに接続します。</p>
+    <div class="actions"><button type="button" id="example" disabled>架空の記入例を入れる</button><button type="button" id="clear" class="quiet" disabled>入力を消す</button></div>
+    <p id="sample-status" class="muted"></p>
+    <noscript><p>このツールはJavaScriptを使います。<a href="https://github.com/snowkiss13/ja-writing-norms/blob/main/examples/07-adopted-version-record-template.md">コピーして使う記録用テンプレート</a>もあります。</p></noscript>
+  </header>
+  <form id="record-form" autocomplete="off">
+    <section aria-labelledby="compare-title">
+      <h2 id="compare-title"><span>1</span>原文と候補を並べる</h2>
+      <div class="pair">
+        <div><label for="original">元の文章</label><textarea id="original" rows="8" spellcheck="false"></textarea><label for="originalRef" class="small-label">元の文章の保存先または版（任意）</label><input id="originalRef" type="text" placeholder="例：案内文 v1"></div>
+        <div><label for="proposal">AIの修正候補</label><textarea id="proposal" rows="8" spellcheck="false"></textarea><label for="proposalRef" class="small-label">修正候補の保存先または版（任意）</label><input id="proposalRef" type="text" placeholder="例：修正候補A"></div>
+      </div>
+      <details><summary>文書名や変更箇所も記録する</summary><div class="pair detail-fields">
+        <div><label for="subject">対象の文章</label><input id="subject" type="text"><label for="workDate">作業日</label><input id="workDate" type="date"><label for="purpose">修正の目的</label><textarea id="purpose" rows="2"></textarea></div>
+        <div><label for="changes">変更した箇所</label><textarea id="changes" rows="3"></textarea><label for="changeReason">変更の理由</label><textarea id="changeReason" rows="3"></textarea></div>
+      </div></details>
+    </section>
+    <section aria-labelledby="facts-title">
+      <h2 id="facts-title"><span>2</span>元資料と照合したことを残す</h2>
+      <p>数字や条件を元資料と比べて記入します。空欄は、保存時にも「未確認（未記入）」と表示します。</p>
+      <div class="pair">
+        <div><label for="numbers">数字</label><input id="numbers" type="text" placeholder="例：締切の11月28日を維持"><label for="names">固有名詞</label><input id="names" type="text" placeholder="確認した名称、または該当なし"></div>
+        <div><label for="conditions">条件</label><input id="conditions" type="text" placeholder="例：受付へ提出する条件を維持"><label for="other">その他</label><input id="other" type="text" placeholder="例：提出するものは申込書のまま"></div>
+      </div>
+    </section>
+    <section aria-labelledby="decision-title">
+      <h2 id="decision-title"><span>3</span>現在使う文章と判断を残す</h2>
+      <div class="actions"><button type="button" id="use-original" disabled>原文を現在版の欄へ入れる</button><button type="button" id="use-proposal" disabled>候補を現在版の欄へ入れる</button></div>
+      <label for="current">現在使う文章</label><textarea id="current" rows="7" spellcheck="false" aria-describedby="current-help"></textarea>
+      <p id="current-help" class="muted">必要な部分だけ取り入れた文章にも直せます。欄へ入れた後、判断を選んでください。</p>
+      <div class="pair">
+        <div><label for="decision">修正候補についての判断</label><select id="decision"><option value="pending">保留</option><option value="adopt">採用</option><option value="reject">見送り</option></select><label for="currentRef">現在使う版の保存先または版（任意）</label><input id="currentRef" type="text"></div>
+        <div><label for="reason">判断の理由</label><textarea id="reason" rows="3"></textarea></div>
+      </div>
+      <label for="remaining">未確認の点</label><textarea id="remaining" rows="2" placeholder="確認することが残っていれば記入。なければ「なし」と記入"></textarea>
+      <p class="muted">このツールは記録の保存を助けます。文面の正しさは自動判定しません。</p>
+    </section>
+    <section aria-labelledby="save-title">
+      <h2 id="save-title">記録を手元に保存する</h2>
+      <p id="validation" class="validation"></p>
+      <div class="actions"><button type="button" id="download" class="primary" disabled>Markdownファイルを保存</button><button type="button" id="copy" disabled>記録をコピー</button></div>
+      <p id="feedback" role="status" aria-live="polite"></p>
+      <details><summary>保存する記録を確認する</summary><label for="preview" class="small-label">Markdownの内容</label><textarea id="preview" rows="14" readonly spellcheck="false"></textarea></details>
+    </section>
+  </form>
+  <aside aria-labelledby="offer-title">
+    <h2 id="offer-title">確認表と指示文も使いたいときに</h2>
+    <p>同じ運営の<a id="product-link" href="https://note.com/smartcareviz/n/naf463e2cc4cb">採用版チェックリストと指示文</a>は、500円の買い切りです。無料部分で指示文1本を読めます。この記入ツールは無料で使えます。</p>
+  </aside>
+  <footer><a href="https://github.com/snowkiss13/ja-writing-norms/blob/main/examples/07-adopted-version-record-template.md">元の記録用テンプレート</a><a href="https://snowkiss13.github.io/ja-writing-norms/">サイトのトップへ</a></footer>
+</main>
+</body>
+</html>
