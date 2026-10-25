@@ -42,7 +42,7 @@ def render(root=ROOT):
     license_text = (root / 'LICENSE').read_text()
     if '-->' in license_text:
         raise ValueError('License cannot be embedded as an HTML comment')
-    page = replace_once(page, '<!doctype html>', '<!doctype html>\n<!--\n' + license_text + '-->')
+    page = replace_once(page, '<meta charset="utf-8">', '<meta charset="utf-8">\n<!--\n' + license_text + '-->')
     return page
 
 def main():

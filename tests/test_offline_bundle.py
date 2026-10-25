@@ -13,6 +13,11 @@ bundle = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bundle)
 
 class OfflineBundleTests(unittest.TestCase):
+    def test_encoding_declaration_fits_in_first_1024_bytes_without_http_headers(self):
+        raw = bundle.render().encode('utf-8')
+        declaration = b'<meta charset="utf-8">'
+        self.assertLessEqual(raw.index(declaration) + len(declaration), 1024)
+
     def test_inline_bytes_match_csp_and_have_no_loadable_dependencies(self):
         page = bundle.render()
         for pattern in (r'<script type="module">(.*?)</script>', r'<style>(.*?)</style>'):
