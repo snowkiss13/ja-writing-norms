@@ -1,0 +1,17 @@
+name: Verify adopted-version record
+on:
+  push:
+    paths: ['docs/adopted-version/**', 'tests/adopted-record.test.mjs', '.github/workflows/adopted-record.yml']
+  pull_request:
+    paths: ['docs/adopted-version/**', 'tests/adopted-record.test.mjs', '.github/workflows/adopted-record.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: node --test tests/adopted-record.test.mjs
+      - run: node --input-type=module --check < docs/adopted-version/app.js
