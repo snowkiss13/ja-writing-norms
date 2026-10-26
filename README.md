@@ -64,6 +64,21 @@ URLにパラメータを追加するだけで利用できるため、簡単に�
 
 ## 導入
 
+### Skills CLIでプロジェクトに導入する
+
+Node.js 22.20以降がある場合は、利用するプロジェクトのルートで次を実行すると、Codex用の2本をまとめて導入できます。
+
+```bash
+npx skills@1.7.4 add snowkiss13/ja-writing-norms --skill japanese-tech-writing cognitive-rhythm-writing --agent codex --copy
+```
+
+この方法では、`main`の最新版をプロジェクト内の`.agents/skills/`へコピーします。
+2本は互いを参照するため、両方を指定しています。
+使い始めるときは、Codexで`$japanese-tech-writing`または`$cognitive-rhythm-writing`を指定します。
+CLIの対応環境と指定方法は[Skills CLIの公式ドキュメント](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)で確認できます。
+
+### タグを固定して手動で導入する
+
 安定版の内容を固定して取得する場合は、タグを指定してチェックアウトします。
 
 ```bash
