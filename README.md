@@ -82,11 +82,11 @@ CLIの対応環境と指定方法は[Skills CLIの公式ドキュメント](http
 安定版の内容を固定して取得する場合は、タグを指定してチェックアウトします。
 
 ```bash
-git clone --depth 1 --branch v0.2.0 https://github.com/snowkiss13/ja-writing-norms.git
+git clone --depth 1 --branch v0.3.1 https://github.com/snowkiss13/ja-writing-norms.git
 cd ja-writing-norms
 ```
 
-Gitを使わない場合は、[v0.2.0のZIPをダウンロード](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.2.0.zip)して展開できます。作成された`ja-writing-norms-0.2.0`フォルダへ移動してから、下の利用ツールに合う配置手順を実行してください。
+Gitを使わない場合は、[v0.3.1のZIPをダウンロード](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.3.1.zip)して展開できます。作成された`ja-writing-norms-0.3.1`フォルダへ移動してから、下の利用ツールに合う配置手順を実行してください。
 
 その後、利用するツールの配置手順を実行してください。
 
