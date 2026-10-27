@@ -53,7 +53,7 @@ Each `SKILL.md` points to the other.
 
 ### Download without Git
 
-Download the [v0.2.0 ZIP archive](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.2.0.zip) and extract it. Open the `ja-writing-norms-0.2.0` folder, then run the installation commands below from that repository root.
+Download the [v0.3.1 ZIP archive](https://github.com/snowkiss13/ja-writing-norms/archive/refs/tags/v0.3.1.zip) and extract it. Open the `ja-writing-norms-0.3.1` folder, then run the installation commands below from that repository root.
 
 ### Claude Code
 
