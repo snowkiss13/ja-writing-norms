@@ -4,6 +4,16 @@ Two open skills for writing clear Japanese with AI assistance by shaping the dra
 
 [日本語](README.md)
 
+## Keep a record of an AI revision
+
+[Open the free record tool](https://snowkiss13.github.io/ja-writing-norms/adopted-version/) to place the original and proposed text side by side, record the facts you checked, and save the version you will use with your decision and reasons as Markdown.
+The interface is in Japanese. You check facts against the source yourself; the tool records your findings.
+Entries are processed in the browser and are not saved automatically. Download the Markdown record before closing the page.
+
+For offline use, choose **オフラインで使うHTML版を保存** on the tool page and open the downloaded HTML file in a desktop browser.
+The HTML file is a blank copy of the tool, so save your completed record separately as Markdown.
+Filling in the offline form and saving the record need no internet connection; opening product or source links does.
+
 ## See the difference in 30 seconds
 
 The sample remains in Japanese because Japanese prose is the subject of the skills.
@@ -116,6 +126,17 @@ When the input does not support a claim, they preserve uncertainty instead of ad
 
 The Before passages are plausible first drafts, not contrived nonsense.
 Each example names the exact rules that changed the After version.
+
+### AI revision records in Japanese
+
+- [Compare a revision while keeping missing facts unconfirmed](examples/06-ai-revision-adopted-version.md)
+- [Blank record template](examples/07-adopted-version-record-template.md)
+- [Completed record example](examples/08-adopted-version-record-example.md)
+- [Example of rejecting a revision](examples/09-adopted-version-rejection-example.md)
+
+These documents are in Japanese. The filled examples are fictional, and the template is blank.
+An optional [Japanese checklist and prompt pack](https://note.com/smartcareviz/n/naf463e2cc4cb) is sold separately on note for ¥500; its free preview includes one prompt.
+The record tool and repository examples are free to use.
 
 ## License
 
