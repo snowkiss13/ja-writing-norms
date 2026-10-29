@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ja">
   <id>https://snowkiss13.github.io/ja-writing-norms/feed.atom</id>
   <title>ja-writing-norms 更新情報</title>
-  <updated>2026-10-26T01:17:16Z</updated>
+  <updated>2026-10-29T03:48:39Z</updated>
   <link rel="self" type="application/atom+xml" href="https://snowkiss13.github.io/ja-writing-norms/feed.atom" />
   <link rel="alternate" type="text/html" href="https://snowkiss13.github.io/ja-writing-norms/" />
   <link rel="hub" href="https://pubsubhubbub.appspot.com/" />
@@ -10,6 +10,13 @@
     <name>snowkiss13</name>
     <uri>https://github.com/snowkiss13</uri>
   </author>
+  <entry>
+    <id>https://github.com/snowkiss13/ja-writing-norms/blob/main/examples/10-request-handoff-conditions.md</id>
+    <title>依頼の変更点と維持条件を分ける記入シート</title>
+    <updated>2026-10-29T03:48:39Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/snowkiss13/ja-writing-norms/blob/main/examples/10-request-handoff-conditions.md" />
+    <summary>元の依頼と変更連絡を照合し、変更する値、維持する値、要確認の項目を記録する無料のテキスト雛形と架空の記入例を公開しました。</summary>
+  </entry>
   <entry>
     <id>https://snowkiss13.github.io/ja-writing-norms/adopted-version/</id>
     <title>AI修正後の採用版を記録する無料ツール | ja-writing-norms</title>
