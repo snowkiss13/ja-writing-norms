@@ -27,5 +27,6 @@ Afterを読むときは、語尾の変化より次の点を比べてください
 | 07 | [採用版を記録する雛形](07-adopted-version-record-template.md) | 原文、修正候補、判断理由の記録 |
 | 08 | [採用版の記録例](08-adopted-version-record-example.md) | 期限、提出先、提出対象の照合例 |
 | 09 | [採用を見送る記録例](09-adopted-version-rejection-example.md) | 数字の変更を照合し、未確認として見送る例 |
+| 10 | [依頼文の変更点と維持条件の記入例](10-request-handoff-conditions.md) | 変更する値、維持する値、記載がない項目の区別 |
 
 各ファイル末尾の「効いた規範」には、変更を支えたスキル名と節名を記載しています。
