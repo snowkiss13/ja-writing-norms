@@ -154,7 +154,7 @@ Cursorはプロジェクトルートの`AGENTS.md`をルールとして読みま
 - [AI修正後の採用版を記録する雛形](examples/07-adopted-version-record-template.md)
 - [採用版の記録例](examples/08-adopted-version-record-example.md)
 - [AI修正後の採用を見送る記録例](examples/09-adopted-version-rejection-example.md)
-- [依頼文の変更点と維持条件の記入例](examples/10-request-handoff-conditions.md)（[空欄の記入シート](https://snowkiss13.github.io/ja-writing-norms/templates/request-handoff.txt)）
+- [依頼文の変更点と維持条件の記入例](https://snowkiss13.github.io/ja-writing-norms/request-handoff/)（[空欄の記入シート](https://snowkiss13.github.io/ja-writing-norms/templates/request-handoff.txt)）
 
 AI修正後の確認に使える[採用版チェックリストと指示文](https://note.com/smartcareviz/n/naf463e2cc4cb)も公開しています。500円の買い切りで、無料部分に指示文1本、有料部分にチェックリストと指示文4本を収録しています。
 
